@@ -63,7 +63,7 @@ def write_network_ifaces_info(file, io_old):
 while True:
     io_old = get_net_iface_counters()
     time.sleep(UPDATE_TIME)
-    with open("system_data_readings.txt", "w") as file:
+    with open(os.path.expanduser("~") + "/system_data_readings.txt", "w") as file:
         write_cpu_usage(file)
         write_cpu_temp(file)
         write_RAM_usage(file)
