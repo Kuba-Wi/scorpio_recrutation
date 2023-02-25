@@ -11,5 +11,10 @@ And then at the bottom of a file that showed up added
 @reboot python3 /bin/system_readings.py &
 ```
 
+To start a web page type
+```
+node app.js
+```
+
 Screen of a working app
 ![](working_app.png)
