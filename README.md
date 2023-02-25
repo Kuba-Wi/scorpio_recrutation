@@ -10,3 +10,6 @@ And then at the bottom of a file that showed up added
 ```
 @reboot python3 /bin/system_readings.py &
 ```
+
+Screen of a working app
+![](working_app.png)
