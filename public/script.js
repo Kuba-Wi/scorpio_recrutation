@@ -1,38 +1,3 @@
-// var $container = $("#cont");
-// var $itens = $( ".item" )
-// // $itens.append("<div class='left'>move left</div><div class='right'>move right</div>");
-
-
-// $container.packery();
-// $itens.draggable({
-//       stop: function() {
-//         window.setTimeout(function() {$container.packery()}, 100);
-//       }
-//     });
-// $itens.click(function() {
-//     $(this).hide();
-// })
-// $container.packery('bindUIDraggableEvents', $itens);
-
-// function orderItems() {
-//   var result = "";
-//   $($container.packery('getItemElements')).each( function(i, el) {
-//     result += i+1 + "-" + $(el).text() + "<br>";
-//   });
-// //   $("#result").html(result);
-// }
-
-// $container.packery( 'on', 'layoutComplete', orderItems );
-// $container.packery( 'on', 'dragItemPositioned', orderItems );
-
-
-// const fs = require("fs");
-// fs.readFile("system_data_readings.txt", (err, data) => {
-//   if (err) throw err;
-
-//   console.log(data.toString());
-// });
-
 const ram_total = document.getElementById("ram_total")
 const ram_used = document.getElementById("ram_used")
 const ram_avail = document.getElementById("ram_avail")
@@ -76,6 +41,17 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+
+var pckry = new Packery("#tables-cont", {
+    itemSelector: ".tab",
+    columnWidth: 350
+});
+  
+pckry.getItemElements().forEach(function(itemElem) {
+    var draggie = new Draggabilly(itemElem);
+    pckry.bindDraggabillyEvents(draggie);
+});
+
 download_system_readings()
 
 const ram_but = document.getElementById("ram_but")
@@ -94,6 +70,6 @@ network_but.addEventListener("click", () => {
 })
 
 while (true) {
-    await sleep(3000)
+    await sleep(1000)
     download_system_readings()
 }

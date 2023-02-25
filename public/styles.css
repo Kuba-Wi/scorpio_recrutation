@@ -1,5 +1,4 @@
-table {
-    display:inline-block;
+.tab {
     visibility: hidden;
 }
 
@@ -11,9 +10,14 @@ table, td, th {
     text-align: center;
 }
 
+#tables-cont {
+    margin: auto;
+    width: 1050px;
+}
+
 #buttons_container {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     margin-top: 20px;
 }
 
