@@ -7,7 +7,7 @@ import time
 
 UPDATE_TIME = 3
 
-def write_cpu_usage(data_dict):
+def read_cpu_usage(data_dict):
     with os.popen("mpstat -P ALL 1 1") as process:
         HEADERS_COUNT = 4
         for _ in range(HEADERS_COUNT):
@@ -17,26 +17,26 @@ def write_cpu_usage(data_dict):
         for _ in range(CPU_COUNT):
             data_dict["CPU"].append(process.readline().split()[2].replace(",", "."))
 
-def write_cpu_temp(data_dict):
+def read_cpu_temp(data_dict):
     with os.popen("acpi -t") as process:
         data_dict["temp"] = []
         for line in process:
             data_dict["temp"].append(line.split()[3])
 
-def write_RAM_usage(data_dict):
+def read_RAM_usage(data_dict):
     data_dict["RAM"] = {}
     data_dict["RAM"]["total"] = "{:.2f}".format(psutil.virtual_memory()[0]/(10**9))
     data_dict["RAM"]["used"] = "{:.2f}".format(psutil.virtual_memory()[3]/(10**9))
     data_dict["RAM"]["available"] = "{:.2f}".format(psutil.virtual_memory()[1]/(10**9))
 
-def write_disk_usage(data_dict):
+def read_disk_usage(data_dict):
     t, u, free = shutil.disk_usage("/")
     data_dict["disk"] = "{:.2f}".format(free / (10**9))
 
 def get_net_iface_counters():
     return psutil.net_io_counters(pernic=True)
 
-def write_network_ifaces_info(data_dict, io_old):
+def read_network_ifaces_info(data_dict, io_old):
     ifaces = {}
     for ifname, data in psutil.net_if_stats().items():
         ifaces[ifname] = {"status" : "UP" if data.isup else "DOWN"}
@@ -57,10 +57,10 @@ while True:
     io_old = get_net_iface_counters()
     time.sleep(UPDATE_TIME)
     data_dict = {}
-    write_cpu_usage(data_dict)
-    write_cpu_temp(data_dict)
-    write_RAM_usage(data_dict)
-    write_disk_usage(data_dict)
-    write_network_ifaces_info(data_dict, io_old)
+    read_cpu_usage(data_dict)
+    read_cpu_temp(data_dict)
+    read_RAM_usage(data_dict)
+    read_disk_usage(data_dict)
+    read_network_ifaces_info(data_dict, io_old)
     with open(os.path.expanduser("~") + "/system_data_readings.txt", "w") as file:
         file.write(json.dumps(data_dict))
