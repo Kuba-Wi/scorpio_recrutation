@@ -1,5 +1,6 @@
 table {
     display:inline-block;
+    visibility: hidden;
 }
 
 table, td, th {
