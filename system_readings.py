@@ -46,8 +46,8 @@ def write_network_ifaces_info(data_dict, io_old):
 
     io_new = get_net_iface_counters()
     for ifname, data in io_old.items():
-        recv_speed = (io_new[ifname].bytes_recv - data.bytes_recv) // UPDATE_TIME
-        send_speed = (io_new[ifname].bytes_sent - data.bytes_sent) // UPDATE_TIME
+        recv_speed = (io_new[ifname].bytes_recv - data.bytes_recv) * 8 // UPDATE_TIME
+        send_speed = (io_new[ifname].bytes_sent - data.bytes_sent) * 8 // UPDATE_TIME
         ifaces[ifname]["recv_speed"] = recv_speed
         ifaces[ifname]["send_speed"] = send_speed
 

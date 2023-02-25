@@ -15,9 +15,11 @@ app.post('/', (req, res) => {
   fs.readFile(os.homedir() + "/system_data_readings.txt", (err, data) => {
     if (err) {
       console.log("error reading file")
-    };
+      res.send({"result": "error"})
+      return
+    }
 
-    res.send(data.toString());
+    res.send({"result": JSON.parse(data.toString())});
   });
 })
 

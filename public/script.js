@@ -12,28 +12,32 @@ async function download_system_readings() {
         method: "POST"
     })
     var response = await res_promise.json()
-    ram_total.innerText = response.RAM.total
-    ram_used.innerText = response.RAM.used
-    ram_avail.innerText = response.RAM.available
-    disk_free.innerText = response.disk
+    if (response.result === "error") {
+        return
+    }
+
+    ram_total.innerText = response.result.RAM.total
+    ram_used.innerText = response.result.RAM.used
+    ram_avail.innerText = response.result.RAM.available
+    disk_free.innerText = response.result.disk
     
     cpu_table.innerHTML = `<th colspan="2">CPU core usage [%]</th>`
-    response.CPU.forEach((el, index) => {
+    response.result.CPU.forEach((el, index) => {
         cpu_table.innerHTML += `<tr><td>CPU${index+1}</td><td>${el}</td></tr>`
     })
     
     cpu_table.innerHTML += `<th colspan="2">Sensors temperature &#8451;</th>`
-    response.temp.forEach(el => {
+    response.result.temp.forEach(el => {
         cpu_table.innerHTML += `<tr><td class="center-cell" colspan="2">${el}</td></tr>`
     })
     
     network_table.innerHTML = `<th colspan="2">Network interfaces</th>`
-    for (const ifname in response.network) {
+    for (const ifname in response.result.network) {
         network_table.innerHTML += `<th colspan="2">${ifname}</th>`
-        network_table.innerHTML += `<tr><td>status</td><td>${response.network[ifname].status}</td></tr>`
-        network_table.innerHTML += `<tr><td>ip</td><td>${response.network[ifname].ip}</td></tr>`
-        network_table.innerHTML += `<tr><td>receive speed [b/s]</td><td>${response.network[ifname].recv_speed}</td></tr>`
-        network_table.innerHTML += `<tr><td>send speed [b/s]</td><td>${response.network[ifname].send_speed}</td></tr>`
+        network_table.innerHTML += `<tr><td>status</td><td>${response.result.network[ifname].status}</td></tr>`
+        network_table.innerHTML += `<tr><td>ip</td><td>${response.result.network[ifname].ip}</td></tr>`
+        network_table.innerHTML += `<tr><td>receive speed [b/s]</td><td>${response.result.network[ifname].recv_speed}</td></tr>`
+        network_table.innerHTML += `<tr><td>send speed [b/s]</td><td>${response.result.network[ifname].send_speed}</td></tr>`
     }
 }
 
