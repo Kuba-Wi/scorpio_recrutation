@@ -1,0 +1,22 @@
+{
+  "name": "scorpio_rek",
+  "version": "1.0.0",
+  "description": "To execute a program on system startup I copied a script to `/bin` folder by command ``` sudo cp system_readings.py /bin ``` Then created a cron job scheduler by command ``` crontab -e ``` And then at the bottom of a file that showed up added ``` @reboot python3 /bin/system_readings.py & ```",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kuba-Wi/scorpio_recrutation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kuba-Wi/scorpio_recrutation/issues"
+  },
+  "homepage": "https://github.com/Kuba-Wi/scorpio_recrutation#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
