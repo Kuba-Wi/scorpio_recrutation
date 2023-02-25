@@ -10,11 +10,11 @@ UPDATE_TIME = 3
 def write_cpu_usage(data_dict):
     with os.popen("mpstat -P ALL 1 1") as process:
         HEADERS_COUNT = 4
-        for i in range(HEADERS_COUNT):
+        for _ in range(HEADERS_COUNT):
             process.readline()
         data_dict["CPU"] = []
         CPU_COUNT = psutil.cpu_count()
-        for i in range(CPU_COUNT):
+        for _ in range(CPU_COUNT):
             data_dict["CPU"].append(process.readline().split()[2].replace(",", "."))
 
 def write_cpu_temp(data_dict):
