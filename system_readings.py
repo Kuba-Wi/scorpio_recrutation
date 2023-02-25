@@ -25,9 +25,9 @@ def read_cpu_temp(data_dict):
 
 def read_RAM_usage(data_dict):
     data_dict["RAM"] = {}
-    data_dict["RAM"]["total"] = "{:.2f}".format(psutil.virtual_memory()[0]/(10**9))
-    data_dict["RAM"]["used"] = "{:.2f}".format(psutil.virtual_memory()[3]/(10**9))
-    data_dict["RAM"]["available"] = "{:.2f}".format(psutil.virtual_memory()[1]/(10**9))
+    data_dict["RAM"]["total"] = "{:.2f}".format(psutil.virtual_memory().total/(10**9))
+    data_dict["RAM"]["used"] = "{:.2f}".format(psutil.virtual_memory().used/(10**9))
+    data_dict["RAM"]["available"] = "{:.2f}".format(psutil.virtual_memory().available/(10**9))
 
 def read_disk_usage(data_dict):
     t, u, free = shutil.disk_usage("/")
